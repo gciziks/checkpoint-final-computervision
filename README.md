@@ -1,4 +1,4 @@
-# CPZÃO — Auditoria de Calçadas
+# Checkpoint Visão Computacional — Auditoria de Calçadas
 
 Pipeline de visão computacional para detectar problemas e elementos de acessibilidade em calçadas urbanas, com YOLOv8n e inferência móvel.
 
