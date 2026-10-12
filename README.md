@@ -42,7 +42,17 @@ O conjunto combinado contém **10.284 imagens rotuladas** e **21.477 bounding bo
 | Validação | 2.057 |
 | Teste | 1.028 |
 
-As origens são os datasets de buracos/trincas, obstáculos em vias e BlindPath-Zebra; o resumo de balanceamento, caixas por classe e origem está em [`docs/dataset_stats.md`](docs/dataset_stats.md). As imagens e labels não estão incluídas no repositório: `data/raw/` e `data/dataset/` são ignoradas pelo Git.
+As imagens e labels originais foram obtidas das três versões abaixo no Roboflow Universe. `data/raw/` e `data/dataset/` são ignoradas pelo Git, portanto baixe as versões indicadas e extraia cada export YOLOv7 em sua pasta correspondente antes de executar o notebook. O resumo de balanceamento, caixas por classe e origem está em [`docs/dataset_stats.md`](docs/dataset_stats.md).
+
+| Dataset | Versão usada | Link da versão/exportação | Licença indicada pela fonte |
+|---|---:|---|---|
+| [road potholes and cracks](https://universe.roboflow.com/pothole-dataset-hhozt/road-potholes-and-cracks-jmxtp-kasjb-ef2as/dataset/1) | 1 | [Projeto no Roboflow Universe](https://universe.roboflow.com/pothole-dataset-hhozt/road-potholes-and-cracks-jmxtp-kasjb-ef2as) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+| [object on road](https://universe.roboflow.com/ali-gjxr7/object-on-road-1qv79/dataset/1) | 1 | [Projeto no Roboflow Universe](https://universe.roboflow.com/ali-gjxr7/object-on-road-1qv79) | CC BY 4.0 (conforme `README.dataset.txt` do export local) |
+| [BlindPath&Zebra_Dataset](https://universe.roboflow.com/experimentlab/blindpath-zebra_dataset/dataset/4) | 4 | [Projeto no Roboflow Universe](https://universe.roboflow.com/experimentlab/blindpath-zebra_dataset) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+
+Os arquivos `data.yaml` dos exports registram as versões 1, 1 e 4 e a licença CC BY 4.0. A redistribuição e adaptação sob CC BY 4.0 exigem atribuição, indicação de mudanças e link para a licença; consulte os termos na página da Creative Commons. O merge renomeia classes, filtra anotações e aplica balanceamento/augmentation a `piso_tatil`. Isso descreve a licença declarada nos metadados dos exports; verifique a página de cada fonte e preserve a atribuição ao reutilizar ou redistribuir dados e imagens.
+
+Para reproduzir: baixe cada versão acima no formato YOLOv7 PyTorch e extraia para `data/raw/road potholes and cracks.v1i.yolov7pytorch/`, `data/raw/object on road.v1i.yolov7pytorch/` e `data/raw/BlindPath-Zebra_Dataset.v4i.yolov7pytorch/`. Em seguida execute `notebooks/01_merge_datasets.ipynb`.
 
 ### Limitação conhecida
 
@@ -69,9 +79,7 @@ Para a demonstração de 13/out com câmera ao vivo, falta publicar a PWA em HTT
 
 ## Pendências para entrega pública
 
-- Criar/conectar o repositório GitHub e publicar o projeto; esta pasta ainda não contém `.git`.
 - Publicar `app/Code/` em HTTPS e confirmar a inferência ao vivo pela câmera traseira no celular.
-- Registrar no README os links e licenças exatos dos datasets de origem para que outra pessoa consiga baixar os dados ignorados por Git e reproduzir o merge.
 
 ## Estrutura
 
