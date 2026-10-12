@@ -1,0 +1,8 @@
+path: ./data/dataset
+train: images/train
+val: images/val
+test: images/test
+names:
+  0: buraco_trinca
+  1: poste_obstaculo
+  2: piso_tatil

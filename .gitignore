@@ -1,0 +1,32 @@
+# Dados de origem e artefatos grandes
+data/raw/
+data/dataset/
+runs/
+*.pt
+*.pth
+*.tflite
+*.onnx
+!models/best.pt
+!models/best.tflite
+!models/best.onnx
+!app/android/app/src/main/assets/best.tflite
+
+# Python
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Android / Gradle
+.gradle/
+.android-build/
+.uv-cache-tmp/
+app/build/
+local.properties
+
+# Sistema operacional e editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

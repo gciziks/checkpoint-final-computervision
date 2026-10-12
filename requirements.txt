@@ -1,0 +1,10 @@
+ultralytics>=8.2.0
+torch>=2.2.0
+torchvision
+opencv-python
+matplotlib
+pyyaml
+roboflow
+onnx
+onnxruntime
+tensorflow

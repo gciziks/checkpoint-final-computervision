@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="390" viewBox="0 0 920 390">
+<rect width="100%" height="100%" fill="white"/>
+<style>text{font-family:Arial,sans-serif;fill:#243447}.axis{stroke:#ccd4dc;stroke-width:1}</style>
+<text x="20" y="28" font-size="19" font-weight="bold">Imagens por classe dominante e split</text>
+<line class="axis" x1="270.0" y1="50" x2="270.0" y2="300"/>
+<text x="270.0" y="320" font-size="12" text-anchor="middle">0</text>
+<line class="axis" x1="420.0" y1="50" x2="420.0" y2="300"/>
+<text x="420.0" y="320" font-size="12" text-anchor="middle">662</text>
+<line class="axis" x1="570.0" y1="50" x2="570.0" y2="300"/>
+<text x="570.0" y="320" font-size="12" text-anchor="middle">1324</text>
+<line class="axis" x1="720.0" y1="50" x2="720.0" y2="300"/>
+<text x="720.0" y="320" font-size="12" text-anchor="middle">1987</text>
+<line class="axis" x1="870.0" y1="50" x2="870.0" y2="300"/>
+<text x="870.0" y="320" font-size="12" text-anchor="middle">2649</text>
+<text x="258" y="97.0" font-size="14" text-anchor="end" dominant-baseline="middle">buraco_trinca</text>
+<rect x="270" y="55" width="600.0" height="18" rx="3" fill="#2878B5"/>
+<text x="877.0" y="69" font-size="12">2,649 (train)</text>
+<rect x="270" y="77" width="171.5" height="18" rx="3" fill="#F39C34"/>
+<text x="448.5" y="91" font-size="12">757 (val)</text>
+<rect x="270" y="99" width="85.6" height="18" rx="3" fill="#4A9D67"/>
+<text x="362.6" y="113" font-size="12">378 (test)</text>
+<text x="258" y="199.0" font-size="14" text-anchor="end" dominant-baseline="middle">poste_obstaculo</text>
+<rect x="270" y="157" width="554.9" height="18" rx="3" fill="#2878B5"/>
+<text x="831.9" y="171" font-size="12">2,450 (train)</text>
+<rect x="270" y="179" width="158.6" height="18" rx="3" fill="#F39C34"/>
+<text x="435.6" y="193" font-size="12">700 (val)</text>
+<rect x="270" y="201" width="79.3" height="18" rx="3" fill="#4A9D67"/>
+<text x="356.3" y="215" font-size="12">350 (test)</text>
+<text x="258" y="301.0" font-size="14" text-anchor="end" dominant-baseline="middle">piso_tatil</text>
+<rect x="270" y="259" width="475.7" height="18" rx="3" fill="#2878B5"/>
+<text x="752.7" y="273" font-size="12">2,100 (train)</text>
+<rect x="270" y="281" width="135.9" height="18" rx="3" fill="#F39C34"/>
+<text x="412.9" y="295" font-size="12">600 (val)</text>
+<rect x="270" y="303" width="68.0" height="18" rx="3" fill="#4A9D67"/>
+<text x="345.0" y="317" font-size="12">300 (test)</text>
+</svg>
