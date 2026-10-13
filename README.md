@@ -12,6 +12,7 @@ O objetivo é ajudar a identificar defeitos e obstáculos que dificultam a circu
 | RM98215 | Gabriel Antony Cadima Ciziks |
 | RM98169 | Lucca Sabatini Tambellini |
 | RM98209 | Victor Nuzzi |
+| RM551272 | João Arthur |
 
 ## Classes
 
