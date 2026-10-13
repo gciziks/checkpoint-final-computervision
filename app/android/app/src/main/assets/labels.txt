@@ -1,0 +1,3 @@
+buraco_trinca
+poste_obstaculo
+piso_tatil

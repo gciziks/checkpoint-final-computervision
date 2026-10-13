@@ -27,3 +27,24 @@ A classe mais difícil é **poste_obstaculo** (recall 0.462, mAP@50 0.571), os m
 - `confusion_matrix.png`: matriz de confusão do teste.
 - `PR_curve.png` e `F1_curve.png`: curvas do treino/validação.
 - `test_metrics.json`: métricas numéricas completas e matriz, quando disponível.
+
+## Fine-tuning continuado
+
+O modelo inicial foi continuado por 24 épocas adicionais, com AdamW, imgsz=640, batch=8, workers=0, cache desativado e early stopping configurado para 8 épocas. O treino foi encerrado manualmente ao final da época 24. Hardware: NVIDIA GeForce RTX 3060. Tempo acumulado registrado pelo Ultralytics: 1h40min16s.
+
+Avaliação do checkpoint de fine-tuning no mesmo split de teste:
+
+| Classe | Precision | Recall | mAP@50 | mAP@50-95 |
+|---|---:|---:|---:|---:|
+| buraco_trinca | 0.8461 | 0.6049 | 0.7154 | 0.4241 |
+| poste_obstaculo | 0.7869 | 0.4802 | 0.5896 | 0.3762 |
+| piso_tatil | 0.8435 | 0.7786 | 0.8395 | 0.6054 |
+| **Média** | **0.8255** | **0.6212** | **0.7148** | **0.4686** |
+
+Comparado ao modelo inicial, a mAP@50 média aumentou 0.0240 e a mAP@50-95 aumentou 0.0245. `poste_obstaculo` continua sendo a classe mais difícil, embora seu recall tenha subido de 0.4621 para 0.4802.
+
+![Matriz de confusão do checkpoint de fine-tuning no conjunto de teste](finetune_confusion_matrix.png)
+
+- Checkpoint PyTorch: [`../../models/best_finetuned.pt`](../../models/best_finetuned.pt) (cópia do melhor peso do fine-tuning).
+- Export ONNX instalado no app Android: `models/best_finetuned.onnx`.
+- Resultado numérico detalhado: `finetune_test_metrics.json`.

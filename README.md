@@ -1,4 +1,4 @@
-# CPZÃO — Auditoria de Calçadas
+# Checkpoint Visão Computacional — Auditoria de Calçadas
 
 Pipeline de visão computacional para detectar problemas e elementos de acessibilidade em calçadas urbanas, com YOLOv8n e inferência móvel.
 
@@ -32,6 +32,19 @@ YOLOv8n (`yolov8n.pt`), treinado por até 20 épocas e avaliado no split `test`.
 | `piso_tatil` | 0,7894 | 0,7799 | 0,8128 | 0,5693 |
 | **Média** | **0,7657** | **0,6199** | **0,6909** | **0,4441** |
 
+### Fine-tuning do modelo
+
+O checkpoint inicial foi continuado com AdamW a partir do melhor peso anterior. O treino foi encerrado após a época 24, e o checkpoint resultante foi avaliado no mesmo conjunto de teste:
+
+| Classe | Precision | Recall | mAP@50 | mAP@50–95 |
+|---|---:|---:|---:|---:|
+| `buraco_trinca` | 0,8461 | 0,6049 | 0,7154 | 0,4241 |
+| `poste_obstaculo` | 0,7869 | 0,4802 | 0,5896 | 0,3762 |
+| `piso_tatil` | 0,8435 | 0,7786 | 0,8395 | 0,6054 |
+| **Média** | **0,8255** | **0,6212** | **0,7148** | **0,4686** |
+
+Em relação ao modelo inicial, a média de mAP@50 aumentou de **0,6909 para 0,7148** (+0,0240) e a mAP@50–95 de **0,4441 para 0,4686** (+0,0245). O recall médio ficou praticamente estável. Os resultados completos estão em [`docs/metricas/finetune_test_metrics.json`](docs/metricas/finetune_test_metrics.json).
+
 ## Dataset
 
 O conjunto combinado contém **10.284 imagens rotuladas** e **21.477 bounding boxes** de três classes. A divisão estratificada por classe dominante usa seed 42:
@@ -56,16 +69,16 @@ Para reproduzir: baixe cada versão acima no formato YOLOv7 PyTorch e extraia pa
 
 ### Limitação conhecida
 
-`poste_obstaculo` é a classe mais difícil no teste: obteve recall 0,4621 e mAP@50 0,5705, os menores resultados entre as classes. A matriz de confusão indica que o erro mais comum são objetos não detectados (classificados como background); há também confusão entre `buraco_trinca` e `poste_obstaculo`. A classe agrega objetos visualmente variados (postes, bancos, guias e lixeiras), e objetos pequenos ou parcialmente ocultos podem contribuir para as omissões. Essa explicação é uma hipótese baseada na composição da classe e no padrão da matriz.
+`poste_obstaculo` continua sendo a classe mais difícil no teste após o fine-tuning: recall 0,4802 e mAP@50 0,5896, os menores resultados entre as classes. Objetos não detectados e confusões com `buraco_trinca` permanecem relevantes. A classe reúne objetos visualmente variados (postes, bancos, guias e lixeiras), e objetos pequenos ou parcialmente ocultos podem contribuir para as omissões. Essa explicação é uma hipótese baseada na composição da classe e no padrão das matrizes.
 
 ## Artefatos
 
-- Pesos treinados: [`models/best.pt`](models/best.pt); exports mobile: `models/best.tflite` e `models/best.onnx`.
+- Pesos do treino inicial: [`models/best.pt`](models/best.pt); pesos e export ONNX do fine-tuning avaliado: [`models/best_finetuned.pt`](models/best_finetuned.pt) e [`models/best_finetuned.onnx`](models/best_finetuned.onnx). O APK usa esse ONNX; a PWA usa uma cópia em `app/Code/public/models/best.onnx`. Os exports TFLite e ONNX anteriores são do modelo inicial.
 - Métricas detalhadas, curvas e matriz de confusão: [`docs/metricas/relatorio_treino.md`](docs/metricas/relatorio_treino.md).
 - Dataset Ultralytics: `data/dataset/data.yaml`.
-- Notebook de preparação e treino: `notebooks/01_merge_datasets.ipynb` e `notebooks/02_treino_yolov8.ipynb`.
+- Notebook de preparação e treino: `notebooks/01_merge_datasets.ipynb`, `notebooks/02_treino_yolov8.ipynb`; script de fine-tuning: `notebooks/04_finetune_score.py`.
 - Notebook de exportação móvel: `notebooks/03_export_mobile.ipynb`.
-- App Android nativo (Kotlin + TFLite): `app/android/`; instruções de build em [`app/android/README.md`](app/android/README.md).
+- App Android nativo (Kotlin + ONNX Runtime): `app/android/`; instruções de build em [`app/android/README.md`](app/android/README.md). O APK atualizado já foi instalado no celular conectado.
 
 ### Instalar e usar o app
 
@@ -73,9 +86,9 @@ Com Android SDK e JDK 17 configurados, gere o APK debug com `app/android/gradlew
 
 ### Câmera traseira em tempo real (PWA)
 
-O clone adaptado de `yoloinferApp` está em `app/Code/`: usa `models/best.onnx`, os nomes das três classes e `getUserMedia` com `facingMode: environment` para inferência contínua pela câmera traseira. O limiar inicial da PWA é 40%. Para usar a câmera no celular, a PWA precisa ser publicada em HTTPS (ou servida em um contexto seguro) e receber permissão de câmera; o projeto tem configuração Netlify, mas ainda não há URL pública documentada nem confirmação de teste presencial dessa versão. O APK Kotlin instalado é um caminho nativo separado e, por enquanto, processa fotos escolhidas da galeria.
+O clone adaptado de `yoloinferApp` está em `app/Code/`: usa o ONNX do fine-tuning, os nomes das três classes e `getUserMedia` com `facingMode: environment` para inferência contínua pela câmera traseira. O limiar inicial da PWA é 40%. Para usar a câmera no celular, a PWA precisa ser publicada em HTTPS (ou servida em um contexto seguro) e receber permissão de câmera; o projeto tem configuração Netlify, mas ainda não há URL pública documentada nem confirmação de teste presencial dessa versão. O APK Kotlin instalado é um caminho nativo separado e processa fotos escolhidas da galeria.
 
-Para a demonstração de 13/out com câmera ao vivo, falta publicar a PWA em HTTPS e validar no celular a permissão, o desempenho contínuo e as caixas. Para melhorar scores baixos, a prioridade é coletar e rotular fotos do mesmo tipo de calçada, distância e iluminação observados no celular e continuar o treino: a mAP de validação ainda subiu de 0,651 na época 16 para 0,685 na época 20. Baixar o threshold só mostra detecções mais incertas; não aumenta a confiança do modelo. `poste_obstaculo` merece atenção especial (recall 0,462 e mAP@50 0,571 no teste), pois reúne objetos visualmente variados.
+Para a demonstração de 13/out com câmera ao vivo, falta publicar a PWA em HTTPS e validar no celular a permissão, o desempenho contínuo e as caixas. Para elevar scores em condições reais, a prioridade é coletar e rotular fotos do mesmo tipo de calçada, distância e iluminação observados no celular. Baixar o threshold só mostra detecções mais incertas; não aumenta a confiança do modelo. `poste_obstaculo` merece atenção especial (recall 0,480 e mAP@50 0,590 no teste), pois reúne objetos visualmente variados.
 
 ## Pendências para entrega pública
 

@@ -9,7 +9,11 @@ runs/
 !models/best.pt
 !models/best.tflite
 !models/best.onnx
-!app/android/app/src/main/assets/best.tflite
+!models/best_finetuned.pt
+!models/best_finetuned.onnx
+!app/Code/public/models/best.onnx
+!app/Code/dist/models/best.onnx
+!app/android/app/src/main/assets/best.onnx
 
 # Python
 venv/
@@ -22,8 +26,14 @@ __pycache__/
 .gradle/
 .android-build/
 .uv-cache-tmp/
-app/build/
+.kotlin/
+**/build/
 local.properties
+
+# Cache e artefato temporário de ferramentas de treino
+/Matplotlib/
+/Ultralytics/
+/calibration_image_sample_data_20x128x128x3_float32.npy
 
 # Sistema operacional e editores
 .DS_Store

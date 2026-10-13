@@ -1,0 +1,46 @@
+{
+  "candidate": "runs/detect/cpzao_v2_adamw/weights/best.pt",
+  "exported_onnx": "models/best_finetuned.onnx",
+  "epochs_completed": 24,
+  "training_seconds": 6015.85,
+  "hardware": "NVIDIA GeForce RTX 3060",
+  "test_split": "data/dataset/data.yaml#test",
+  "baseline": {
+    "map50": 0.6908836907114216,
+    "map50_95": 0.44411245712981157,
+    "precision": 0.7657393634373711,
+    "recall": 0.6198719007009538
+  },
+  "candidate_test": {
+    "map50": 0.7148389539120203,
+    "map50_95": 0.46856308486694687,
+    "precision": 0.8254963815829625,
+    "recall": 0.6212215510839566,
+    "per_class": [
+      {
+        "id": 0,
+        "name": "buraco_trinca",
+        "precision": 0.8461103664805935,
+        "recall": 0.6048728813559322,
+        "map50": 0.7153759864882461,
+        "map50_95": 0.4240878073645241
+      },
+      {
+        "id": 1,
+        "name": "poste_obstaculo",
+        "precision": 0.7869248064855068,
+        "recall": 0.48019168868281886,
+        "map50": 0.5896392276106219,
+        "map50_95": 0.37617160278112355
+      },
+      {
+        "id": 2,
+        "name": "piso_tatil",
+        "precision": 0.8434539717827875,
+        "recall": 0.7786000832131186,
+        "map50": 0.8395016476371931,
+        "map50_95": 0.6054298444551928
+      }
+    ]
+  }
+}
